@@ -14,14 +14,25 @@ class NewsViewController: UITableViewController {
   
   let newsURL = "https://newsapi.org/v2/top-headlines"
   var news: Empty?
+  let myRefreshControl: UIRefreshControl = {
+    let refreshControl = UIRefreshControl()
+    refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+    return refreshControl
+  }()
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view.
+    tableView.refreshControl = myRefreshControl
     fetchRequest()
+    
   }
   
-  func fetchRequest(){
+  @objc private func refresh(sender: UIRefreshControl){
+    fetchRequest()
+    sender.endRefreshing()
+  }
+  
+  @objc func fetchRequest(){
     let parameters : [String : String] = [
       "apiKey" : "9413c8dcf5d548ea9a83965aeb4141f9",
       "country" : "ru",
@@ -29,8 +40,6 @@ class NewsViewController: UITableViewController {
       
     ]
     
-//    let aaa = Alamofire.request(newsURL, method: .get, parameters: parameters)
-//    print(aaa)
 //    let headers: HTTPHeaders = ["X-Api-Key" : "9413c8dcf5d548ea9a83965aeb4141f9"]
     
     Alamofire.request(newsURL, method: .get, parameters: parameters).response { (response) in
@@ -43,9 +52,9 @@ class NewsViewController: UITableViewController {
         let result = try decoder.decode(Empty.self, from: data)
         self.news = result
         print(result)
-//        print(result.articles[0])
+        
         self.tableView.reloadData()
-//        print(result.articles.count)
+      
       } catch {
         print(error.localizedDescription)
       }
