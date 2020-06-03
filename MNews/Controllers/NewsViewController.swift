@@ -14,10 +14,10 @@ class NewsViewController: UITableViewController {
   
   let itemsPerBatch = 15
   var currentRow : Int = 1
-  var itemArray : [String] = []
+  var itemArray : [Article] = []
   
   let newsURL = "https://newsapi.org/v2/top-headlines"
-  var news: Empty?
+  //var news: Empty?
   var myRefreshControl: UIRefreshControl {
     let refreshControl = UIRefreshControl()
     refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -56,7 +56,7 @@ class NewsViewController: UITableViewController {
       let decoder = JSONDecoder()
       do {
         let result = try decoder.decode(Empty.self, from: data)
-        self.news = result
+        self.itemArray = result.articles
         //print(result)
         
         self.tableView.reloadData()
@@ -75,13 +75,13 @@ extension NewsViewController: UITableViewDataSourcePrefetching {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return news?.articles.count ?? 0
+    return itemArray.count
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath)
     
-    cell.textLabel?.text = news?.articles[indexPath.row].title
+    cell.textLabel?.text = itemArray[indexPath.row].title
   
     return cell
   }
