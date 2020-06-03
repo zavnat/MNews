@@ -12,31 +12,37 @@ import Alamofire
 
 class NewsViewController: UITableViewController {
   
+  let itemsPerBatch = 15
+  var currentRow : Int = 1
+  var itemArray : [String] = []
+  
   let newsURL = "https://newsapi.org/v2/top-headlines"
   var news: Empty?
-  let myRefreshControl: UIRefreshControl = {
+  var myRefreshControl: UIRefreshControl {
     let refreshControl = UIRefreshControl()
     refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
     return refreshControl
-  }()
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    tableView.prefetchDataSource = self
+    tableView.rowHeight = 80
     tableView.refreshControl = myRefreshControl
-    fetchRequest()
+    fetchRequest(numberPage: currentRow)
     
   }
   
   @objc private func refresh(sender: UIRefreshControl){
-    fetchRequest()
+    fetchRequest(numberPage: currentRow)
     sender.endRefreshing()
   }
   
-  @objc func fetchRequest(){
+  @objc func fetchRequest(numberPage: Int){
     let parameters : [String : String] = [
       "apiKey" : "9413c8dcf5d548ea9a83965aeb4141f9",
       "country" : "ru",
-      "pageSize" : "10"
+      "pageSize" : "\(numberPage)"
       
     ]
     
@@ -51,7 +57,7 @@ class NewsViewController: UITableViewController {
       do {
         let result = try decoder.decode(Empty.self, from: data)
         self.news = result
-        print(result)
+        //print(result)
         
         self.tableView.reloadData()
       
@@ -62,7 +68,11 @@ class NewsViewController: UITableViewController {
   }
 }
 
-extension NewsViewController {
+extension NewsViewController: UITableViewDataSourcePrefetching {
+  
+  func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+    fetchRequest(numberPage: 1)
+  }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return news?.articles.count ?? 0
