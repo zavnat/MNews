@@ -36,6 +36,7 @@ class NewsViewController: UITableViewController {
   @objc private func refresh(sender: UIRefreshControl){
     currentPage = 1
     items = []
+    tableView.reloadData()
     fetchRequest()
     sender.endRefreshing()
   }
