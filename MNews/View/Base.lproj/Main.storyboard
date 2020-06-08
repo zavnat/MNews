@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Tyz-ME-ogP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Pr7-Z7-Y9D">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -29,10 +30,77 @@
                             <outlet property="delegate" destination="Tyz-ME-ogP" id="3EY-mo-BoL"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="HHs-Br-b1s"/>
+                    <connections>
+                        <segue destination="5U9-D9-UVw" kind="show" identifier="goToDetail" id="U2n-QD-3sV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5b4-lJ-3Ks" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-162" y="64"/>
+            <point key="canvasLocation" x="747.82608695652175" y="63.616071428571423"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="TX9-wO-wv9">
+            <objects>
+                <viewController id="5U9-D9-UVw" customClass="DetailViewController" customModule="MNews" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Cg4-Dw-wBc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9iC-Pa-eHk">
+                                <rect key="frame" x="20" y="170.5" width="374" height="31.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1rn-eO-KzX">
+                                <rect key="frame" x="20" y="222" width="374" height="660"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="9iC-Pa-eHk" firstAttribute="leading" secondItem="R4k-jC-e9L" secondAttribute="leading" constant="20" id="6Fu-Bj-WfD"/>
+                            <constraint firstItem="9iC-Pa-eHk" firstAttribute="top" secondItem="R4k-jC-e9L" secondAttribute="top" constant="82.5" id="ABK-TA-Wad"/>
+                            <constraint firstItem="9iC-Pa-eHk" firstAttribute="trailing" secondItem="1rn-eO-KzX" secondAttribute="trailing" id="Aes-hR-Yyq"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="1rn-eO-KzX" secondAttribute="bottom" constant="-20" id="T2N-lS-EFv"/>
+                            <constraint firstItem="R4k-jC-e9L" firstAttribute="trailing" secondItem="9iC-Pa-eHk" secondAttribute="trailing" constant="20" id="W9v-K9-rUn"/>
+                            <constraint firstItem="9iC-Pa-eHk" firstAttribute="leading" secondItem="1rn-eO-KzX" secondAttribute="leading" id="kdq-bZ-6RS"/>
+                            <constraint firstItem="1rn-eO-KzX" firstAttribute="top" secondItem="9iC-Pa-eHk" secondAttribute="bottom" constant="20" id="lDf-QE-6iT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="R4k-jC-e9L"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="YVj-es-7HU"/>
+                    <connections>
+                        <outlet property="content" destination="1rn-eO-KzX" id="k2v-Xe-nX0"/>
+                        <outlet property="header" destination="9iC-Pa-eHk" id="JTb-SN-1Cf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PL9-ak-wTe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1489.8550724637682" y="63.616071428571423"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ihn-tv-nqf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Pr7-Z7-Y9D" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2jm-mM-GKL">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Tyz-ME-ogP" kind="relationship" relationship="rootViewController" id="25x-hU-yVt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EhK-wJ-7Yj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-162.31884057971016" y="63.616071428571423"/>
         </scene>
     </scenes>
 </document>
