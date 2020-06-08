@@ -12,25 +12,27 @@ class DetailViewController: UIViewController {
 
   @IBOutlet weak var header: UILabel!
   @IBOutlet weak var content: UITextView!
+  @IBOutlet weak var imageView: UIImageView!
   var item: Article?
   
   override func viewDidLoad() {
         super.viewDidLoad()
     header.text = item?.title
     content.text = item?.content
-
-        // Do any additional setup after loading the view.
+    setImage(from: item!.urlToImage)
     }
     
 
-    /*
-    // MARK: - Navigation
+  func setImage(from url: String) {
+      guard let imageURL = URL(string: url) else { return }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+      DispatchQueue.global().async {
+          guard let imageData = try? Data(contentsOf: imageURL) else { return }
 
+          let image = UIImage(data: imageData)
+          DispatchQueue.main.async {
+              self.imageView.image = image
+          }
+      }
+  }
 }

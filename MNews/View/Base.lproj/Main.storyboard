@@ -61,6 +61,10 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Ua-hY-xEC">
+                                <rect key="frame" x="20" y="531" width="374" height="192"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -78,6 +82,7 @@
                     <connections>
                         <outlet property="content" destination="1rn-eO-KzX" id="k2v-Xe-nX0"/>
                         <outlet property="header" destination="9iC-Pa-eHk" id="JTb-SN-1Cf"/>
+                        <outlet property="imageView" destination="6Ua-hY-xEC" id="YPC-Ua-hmP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PL9-ak-wTe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

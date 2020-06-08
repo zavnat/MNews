@@ -93,8 +93,8 @@
 		843B2EA5247F7ED10050A06C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				84160B24248E632F002F719B /* DetailViewController.swift */,
 				843B2E95247F7BAB0050A06C /* NewsViewController.swift */,
+				84160B24248E632F002F719B /* DetailViewController.swift */,
 				8439F6CC247FD74100B2D2FC /* Empty.swift */,
 			);
 			path = Controllers;
