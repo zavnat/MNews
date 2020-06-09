@@ -8,5 +8,6 @@ target 'MNews' do
   # Pods for MNews
 
 pod 'Alamofire'
+pod 'SDWebImage'
 
 end
