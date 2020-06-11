@@ -11,6 +11,7 @@
 		84160B22248C3D34002F719B /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84160B20248C3D34002F719B /* LoadingCell.swift */; };
 		84160B23248C3D34002F719B /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84160B21248C3D34002F719B /* LoadingCell.xib */; };
 		84160B25248E632F002F719B /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84160B24248E632F002F719B /* DetailViewController.swift */; };
+		84395C5524927C9600C98FD4 /* MNews.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84395C5324927C9600C98FD4 /* MNews.xcdatamodeld */; };
 		8439F6CD247FD74100B2D2FC /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439F6CC247FD74100B2D2FC /* Empty.swift */; };
 		843B2E92247F7BAB0050A06C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843B2E91247F7BAB0050A06C /* AppDelegate.swift */; };
 		843B2E94247F7BAB0050A06C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843B2E93247F7BAB0050A06C /* SceneDelegate.swift */; };
@@ -26,6 +27,7 @@
 		84160B20248C3D34002F719B /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 		84160B21248C3D34002F719B /* LoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		84160B24248E632F002F719B /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailViewController.swift; path = MNews/View/DetailViewController.swift; sourceTree = SOURCE_ROOT; };
+		84395C5424927C9600C98FD4 /* MNews.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MNews.xcdatamodel; sourceTree = "<group>"; };
 		8439F6CC247FD74100B2D2FC /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
 		843B2E8E247F7BAB0050A06C /* MNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		843B2E91247F7BAB0050A06C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 		843B2E90247F7BAB0050A06C /* MNews */ = {
 			isa = PBXGroup;
 			children = (
+				84395C5324927C9600C98FD4 /* MNews.xcdatamodeld */,
 				843B2E91247F7BAB0050A06C /* AppDelegate.swift */,
 				843B2E93247F7BAB0050A06C /* SceneDelegate.swift */,
 				843B2EA5247F7ED10050A06C /* Controllers */,
@@ -237,6 +240,7 @@
 			files = (
 				843B2E96247F7BAB0050A06C /* NewsViewController.swift in Sources */,
 				843B2E92247F7BAB0050A06C /* AppDelegate.swift in Sources */,
+				84395C5524927C9600C98FD4 /* MNews.xcdatamodeld in Sources */,
 				8439F6CD247FD74100B2D2FC /* Empty.swift in Sources */,
 				84160B25248E632F002F719B /* DetailViewController.swift in Sources */,
 				843B2E94247F7BAB0050A06C /* SceneDelegate.swift in Sources */,
@@ -440,6 +444,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		84395C5324927C9600C98FD4 /* MNews.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				84395C5424927C9600C98FD4 /* MNews.xcdatamodel */,
+			);
+			currentVersion = 84395C5424927C9600C98FD4 /* MNews.xcdatamodel */;
+			path = MNews.xcdatamodeld;
+			sourceTree = SOURCE_ROOT;
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 843B2E86247F7BAB0050A06C /* Project object */;
 }

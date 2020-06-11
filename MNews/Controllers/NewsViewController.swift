@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import CoreData
 import Alamofire
 
 
 class NewsViewController: UITableViewController {
   
+  let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
   var fetchingMore = false
   var currentPage = 1
-  var items : [Article] = []
+  var items = [Article]()
   
   let newsURL = "https://newsapi.org/v2/everything"
   var myRefreshControl: UIRefreshControl {
@@ -30,7 +33,7 @@ class NewsViewController: UITableViewController {
     tableView.register(loadingNib, forCellReuseIdentifier: "loadingCell")
     tableView.refreshControl = myRefreshControl
     fetchRequest()
-    
+
   }
   
   @objc private func refresh(sender: UIRefreshControl){
@@ -62,6 +65,26 @@ class NewsViewController: UITableViewController {
       let decoder = JSONDecoder()
       do {
         let result = try decoder.decode(Empty.self, from: data)
+        
+//        var coreList = [News]()
+        
+//        for article in result.articles{
+//          let news = News(context: self.context)
+//
+//          news.title = article.title
+//          news.content = article.content
+
+//          news.origin = Origin()
+//
+//          news.origin?.id = article.source.id
+//          news.origin?.name = article.source.name
+          //news.urlToImage = article.urlToImage
+
+//          coreList.append(news)
+
+//        }
+//        self.save()
+        
         self.items += result.articles
         self.currentPage += 1
         self.fetchingMore = false
@@ -72,6 +95,25 @@ class NewsViewController: UITableViewController {
       }
     }
   }
+  
+  func save (){
+    do{
+     try  context.save()
+      
+    }catch{
+      
+    }
+  }
+  
+//  func load (){
+//    let request: NSFetchRequest<Dnews> = Dnews.fetchRequest()
+//    do{
+//      arrayNews = try context.fetch(request)
+//
+//    }catch {
+//
+//    }
+//  }
 }
 
 extension NewsViewController {
