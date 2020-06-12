@@ -4,8 +4,15 @@
         <attribute name="content" attributeType="String"/>
         <attribute name="stringToURL" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
+        <relationship name="origin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Origin" inverseName="news" inverseEntity="Origin"/>
+    </entity>
+    <entity name="Origin" representedClassName=".Origin" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="news" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="News" inverseName="origin" inverseEntity="News"/>
     </entity>
     <elements>
-        <element name="News" positionX="-45" positionY="0" width="128" height="88"/>
+        <element name="News" positionX="-45" positionY="0" width="128" height="103"/>
+        <element name="Origin" positionX="-36" positionY="36" width="128" height="88"/>
     </elements>
 </model>

@@ -12,12 +12,13 @@ import Alamofire
 
 
 class NewsViewController: UITableViewController {
-  
-  let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
+  let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+  var dataToUI = [News]()
+  
   var fetchingMore = false
   var currentPage = 1
-  var items = [Article]()
+  //var items = [Article]()
   
   let newsURL = "https://newsapi.org/v2/everything"
   var myRefreshControl: UIRefreshControl {
@@ -32,13 +33,12 @@ class NewsViewController: UITableViewController {
     let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
     tableView.register(loadingNib, forCellReuseIdentifier: "loadingCell")
     tableView.refreshControl = myRefreshControl
-    fetchRequest()
+    load()
 
   }
   
   @objc private func refresh(sender: UIRefreshControl){
     currentPage = 1
-    items = []
     tableView.reloadData()
     fetchRequest()
     sender.endRefreshing()
@@ -66,26 +66,26 @@ class NewsViewController: UITableViewController {
       do {
         let result = try decoder.decode(Empty.self, from: data)
         
-//        var coreList = [News]()
+        var coreList = [News]()
         
-//        for article in result.articles{
-//          let news = News(context: self.context)
-//
-//          news.title = article.title
-//          news.content = article.content
+        for article in result.articles{
+          let news = News(context: self.context)
 
-//          news.origin = Origin()
-//
-//          news.origin?.id = article.source.id
-//          news.origin?.name = article.source.name
-          //news.urlToImage = article.urlToImage
+          news.title = article.title
+          news.content = article.content
 
-//          coreList.append(news)
+          news.origin = Origin(context: self.context)
 
-//        }
-//        self.save()
+          news.origin?.id = article.source.id
+          news.origin?.name = article.source.name
+          news.stringToURL = article.urlToImage
+
+          coreList.append(news)
+        }
         
-        self.items += result.articles
+        self.save()
+        self.dataToUI = coreList
+        //self.items += result.articles
         self.currentPage += 1
         self.fetchingMore = false
         
@@ -99,21 +99,25 @@ class NewsViewController: UITableViewController {
   func save (){
     do{
      try  context.save()
-      
+      print("Success save data to database")
+      //tableView.reloadData()
     }catch{
       
     }
   }
   
-//  func load (){
-//    let request: NSFetchRequest<Dnews> = Dnews.fetchRequest()
-//    do{
-//      arrayNews = try context.fetch(request)
-//
-//    }catch {
-//
-//    }
-//  }
+  func load (){
+    let request: NSFetchRequest<News> = News.fetchRequest()
+    do{
+      dataToUI = try context.fetch(request)
+      print("Success load data from database")
+      tableView.reloadData()
+      // load fron network
+      fetchRequest()
+    }catch {
+
+    }
+  }
 }
 
 extension NewsViewController {
@@ -124,7 +128,7 @@ extension NewsViewController {
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if section == 0 {
-      return items.count
+      return dataToUI.count
     } else if section == 1 && fetchingMore {
       return 1
     }
@@ -134,7 +138,7 @@ extension NewsViewController {
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if indexPath.section == 0 {
       let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath)
-      cell.textLabel?.text = items[indexPath.row].title
+      cell.textLabel?.text = dataToUI[indexPath.row].title
       return cell
     } else {
       let cell = tableView.dequeueReusableCell(withIdentifier: "loadingCell", for: indexPath) as! LoadingCell
@@ -164,7 +168,7 @@ extension NewsViewController {
     let destinationVC = segue.destination as! DetailViewController
     
     if let indexPath = tableView.indexPathForSelectedRow {
-      destinationVC.item = items[indexPath.row]
+      destinationVC.item = dataToUI[indexPath.row]
     }
     
   }
