@@ -29,6 +29,9 @@ class NewsViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+    
     tableView.rowHeight = 80
     let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
     tableView.register(loadingNib, forCellReuseIdentifier: "loadingCell")

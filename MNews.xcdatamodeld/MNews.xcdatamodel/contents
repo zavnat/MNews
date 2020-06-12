@@ -4,7 +4,7 @@
         <attribute name="content" attributeType="String"/>
         <attribute name="stringToURL" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
-        <relationship name="origin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Origin" inverseName="news" inverseEntity="Origin"/>
+        <relationship name="origin" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Origin" inverseName="news" inverseEntity="Origin"/>
     </entity>
     <entity name="Origin" representedClassName=".Origin" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String"/>
