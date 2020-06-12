@@ -14,6 +14,7 @@ import Alamofire
 class NewsViewController: UITableViewController {
 
   let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+  
   var dataToUI = [News]()
   
   var fetchingMore = false
@@ -36,7 +37,9 @@ class NewsViewController: UITableViewController {
     let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
     tableView.register(loadingNib, forCellReuseIdentifier: "loadingCell")
     tableView.refreshControl = myRefreshControl
+    
     load()
+    fetchRequest()
 
   }
   
@@ -68,7 +71,9 @@ class NewsViewController: UITableViewController {
       let decoder = JSONDecoder()
       do {
         let result = try decoder.decode(Empty.self, from: data)
-        
+        if result.articles.count > 0 {
+          self.deleteAllRecords()
+        }
         var coreList = [News]()
         
         for article in result.articles{
@@ -87,8 +92,13 @@ class NewsViewController: UITableViewController {
         }
         
         self.save()
-        self.dataToUI = coreList
-        //self.items += result.articles
+        if self.currentPage == 1 {
+          self.dataToUI = coreList
+        } else {
+          self.dataToUI.append(contentsOf: coreList)
+        }
+        
+       
         self.currentPage += 1
         self.fetchingMore = false
         
@@ -109,14 +119,26 @@ class NewsViewController: UITableViewController {
     }
   }
   
+  
+  func deleteAllRecords() {
+     
+      let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "News")
+      let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+
+      do {
+          try context.execute(deleteRequest)
+          try context.save()
+      } catch {
+          print ("There was an error")
+      }
+  }
+  
   func load (){
     let request: NSFetchRequest<News> = News.fetchRequest()
     do{
       dataToUI = try context.fetch(request)
       print("Success load data from database")
       tableView.reloadData()
-      // load fron network
-      fetchRequest()
     }catch {
 
     }
