@@ -32,6 +32,7 @@ class NewsViewController: UITableViewController {
     super.viewDidLoad()
     
     print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+
     
     tableView.rowHeight = 80
     let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
@@ -68,10 +69,11 @@ class NewsViewController: UITableViewController {
     Alamofire.request(newsURL, method: .get, parameters: parameters).response { (response) in
       //print(response)
       guard let data = response.data else { return }
+      //print(data)
       let decoder = JSONDecoder()
       do {
         let result = try decoder.decode(Empty.self, from: data)
-        if result.articles.count > 0 {
+        if result.articles.count > 0 && self.currentPage == 1 {
           self.deleteAllRecords()
         }
         var coreList = [News]()
@@ -101,8 +103,9 @@ class NewsViewController: UITableViewController {
        
         self.currentPage += 1
         self.fetchingMore = false
-        
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+          self.tableView.reloadData()
+        }
       } catch {
         print(error.localizedDescription)
       }
@@ -138,7 +141,9 @@ class NewsViewController: UITableViewController {
     do{
       dataToUI = try context.fetch(request)
       print("Success load data from database")
-      tableView.reloadData()
+      DispatchQueue.main.async {
+        self.tableView.reloadData()
+      }
     }catch {
 
     }
